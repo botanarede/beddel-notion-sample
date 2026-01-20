@@ -45,6 +45,19 @@ These instructions will get you a copy of the project up and running on your loc
    ```bash
    npm install
    ```
+## Configure environment variables
+
+Create a .env or .env.local file in the root directory and add the following keys:
+
+   ```
+   # GCP
+   GEMINI_API_KEY=
+   GOOGLE_GENERATIVE_AI_API_KEY=
+   
+   # NOTION
+   NOTION_TOKEN=
+   NOTION_DATABASE_ID=
+   ```
 
 ## Usage
 
