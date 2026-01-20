@@ -32,10 +32,11 @@ export default function NewsletterPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          agentId: 'marketing/newsletter-signup',
+          agentId: 'newsletter-signup',
           name,
           email,
           message,
+          createdAt: new Date().toISOString(),
         }),
       });
 
