@@ -1,4 +1,4 @@
-# Beddel Studio - Newsletter Signup
+# Beddel Protocol Sample - Newsletter Signup
 
 This is a Next.js application that provides a newsletter signup form. It's built with modern web technologies and is designed to be easily deployable.
 
