@@ -1,0 +1,62 @@
+# This agent creates a Notion database with the required schema
+# It uses the mcp-tool primitive to call Notion's API via MCP
+metadata:
+  name: "Database Setup"
+  version: "1.0.0"
+  description: "Creates 'beddel-contact-form' database in Notion"
+workflow:
+  # Step 1: Call Notion MCP to create database
+  - id: "create-database"
+    type: "mcp-tool"
+    config:
+      url: "https://mcp.notion.com/sse"     # Notion's MCP endpoint
+      tool: "notion_create_database"         # MCP tool name
+      arguments:
+        parent:
+          type: "page_id"
+          page_id: "$input.parentPageId"     # From request body
+        title:
+          - text:
+              content: "beddel-contact-form"
+        properties:
+          Name:
+            title: {}
+          Email:
+            email: {}
+          Message:
+            rich_text: {}
+          Tags:
+            multi_select:
+              options:
+                - name: "support"
+                  color: "blue"
+                - name: "sales"
+                  color: "green"
+                - name: "partnership"
+                  color: "purple"
+                - name: "feedback"
+                  color: "yellow"
+          Sentiment:
+            select:
+              options:
+                - name: "positive"
+                  color: "green"
+                - name: "neutral"
+                  color: "gray"
+                - name: "negative"
+                  color: "red"
+          Summary:
+            rich_text: {}
+          CreatedAt:
+            date: {}
+      timeout: 20000
+    result: "createResult"                   # Store for next step
+  # Step 2: Generate structured output
+  - id: "output"
+    type: "output-generator"
+    config:
+      template:
+        success: true
+        action: "Database created"
+        databaseId: "$stepResult.createResult.data.id"
+    result: "finalOutput"
